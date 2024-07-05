@@ -8,8 +8,9 @@
 <body class="phone-bg">
 	<table>
 		<tr>
-			<td><input value="输入文本" id="inputtext" /><button
-					onclick="document.getElementById('text').innerHTML=document.getElementById('inputtext').value;">生成</button>
+			<td><input value="输入文本" id="inputtext" />
+				<button id="generate-btn"
+					onclick="">生成</button>
 				<button id="download-btn">下载</button>
 			</td>
 		</tr>
@@ -36,6 +37,12 @@
 				</div>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				点击下载按钮下载，也可以右键这个图片复制：
+				<img alt="这里是预览图片" id="preview">
+			</td>
+		</tr>
 	</table>
 	<style>
 		.wechat-content {
@@ -47,9 +54,21 @@
 		.wechat-content-container {
 			box-shadow: 5px 5px 5px #00000055;
 		}
+		#preview{
+			width: 70%;
+			display: block;
+		}
 	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 	<script>
+		// generate img
+		document.getElementById('generate-btn').addEventListener('click', function () {
+			document.getElementById('text').innerHTML=document.getElementById('inputtext').value;
+			html2canvas(document.getElementById('capture-area')).then(function (canvas) {
+				document.getElementById('preview').src = canvas.toDataURL('image/png');
+			});
+		});
+
 		// capture, transform to image and download-btn
 		document.getElementById('download-btn').addEventListener('click', function () {
 			html2canvas(document.getElementById('capture-area')).then(function (canvas) {

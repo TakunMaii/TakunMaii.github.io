@@ -204,19 +204,24 @@
             btn.onclick = onclick;
         }
         function choose(factor) {//factor is 0 to 1
-            if (factor >= 0 && factor < 0.3) {
+            if (factor >= 0 && factor < 0.25) {
                 resetBtn("Github主页", () => {
                     location.assign("https://github.com/TakunMaii");
                 });
             }
-            else if (factor >= 0.3 && factor <= 0.7) {
+            else if (factor >= 0.25 && factor <= 0.5) {
                 resetBtn("有趣的网站", () => {
                     location.assign("https://maii.moe/FunnyWebs/fake-wechat.html");
                 });
             }
-            else if (factor >= 0.7 && factor <= 1) {
+            else if (factor >= 0.5 && factor <= 0.75) {
                 resetBtn("个人介绍", () => {
                     location.assign("https://maii.moe/selfintro.html");
+                });
+            }
+            else if (factor >= 0.75 && factor <= 1) {
+                resetBtn("个人介绍", () => {
+                    location.assign("https://maii.moe/devlog.html");
                 });
             }
         }

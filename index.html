@@ -3,31 +3,11 @@
 <html>
 
 <head>
-    <title>Maii's Home</title>
+    <title>MAII不是麻衣学姐</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
     <meta charset="utf-8">
-</head>
-
-<body>
-    <div id="warning-banner" class="hidden">
-        您正在使用HTTP访问此网站，强烈推荐使用<a href="https://maii.moe">HTTPS</a>以提高安全性。
-    </div>
-    <div id="start-text-container">
-        <div id="profile-container">
-            <img src="./icon.ico" alt="MAII的头像" id="profile">
-            <p id="name">MAII</p>
-            <div id="split-line" style="background:linear-gradient(to left,#FFFFFF,#b6b6b6,#FFFFFF);height:1px;"></div>
-            <p id="rule"></p>
-        </div>
-
-
-        <p class="start-text">SEND ME TO</p>
-        <p id="location" class="start-text">MAII的Github主页</p>
-        <button id="enter-btn" class="start-text">PLEASE</button>
-    </div>
-
     <style>
         * {
             user-select: none;
@@ -63,6 +43,11 @@
         #profile {
             width: 100px;
             margin: 0;
+            padding: 5px;
+        }
+
+        #profile:hover {
+            box-shadow: 2px 2px 2px #00000055;
         }
 
         #split-line {
@@ -164,11 +149,16 @@
             background-color: red;
         }
 
+        #location {
+            font-weight: 500;
+        }
+
         #start-text-container {
             position: absolute;
             top: 44%;
             transform: translateY(-50%);
             width: 100%;
+            font-weight: 100;
         }
 
         #start-text-container p {
@@ -176,12 +166,34 @@
             margin-bottom: 20px;
         }
     </style>
+</head>
+
+<body>
+    <div id="warning-banner" class="hidden">
+        您正在使用HTTP访问此网站，强烈推荐使用<a href="https://maii.moe">HTTPS</a>以提高安全性。
+    </div>
+    <div id="start-text-container">
+        <div id="profile-container">
+            <img src="./icon.ico" alt="MAII的头像" id="profile">
+            <p id="name">MAII</p>
+            <div id="split-line" style="background:linear-gradient(to left,#FFFFFF,#b6b6b6,#FFFFFF);height:1px;"></div>
+            <p id="rule"></p>
+        </div>
+
+
+        <p class="start-text">SEND ME TO</p>
+        <p id="location" class="start-text">Github主页</p>
+        <button id="enter-btn" class="start-text">PLEASE</button>
+    </div>
 
     <script>
         if (window.location.protocol === "http:") {
             document.getElementById("warning-banner").classList.remove("hidden");
         }
 
+        document.getElementById("profile").addEventListener('click',()=>{
+            location.assign("https://maii.moe/selfintro.html");
+        });
 
         const btn = document.getElementById('enter-btn');
         btn.onclick = () => {
@@ -192,14 +204,19 @@
             btn.onclick = onclick;
         }
         function choose(factor) {//factor is 0 to 1
-            if (factor >= 0 && factor < 0.5) {
-                resetBtn("MAII的Github主页", () => {
+            if (factor >= 0 && factor < 0.3) {
+                resetBtn("Github主页", () => {
                     location.assign("https://github.com/TakunMaii");
                 });
             }
-            else if (factor >= 0.5 && factor <= 1) {
+            else if (factor >= 0.3 && factor <= 0.7) {
                 resetBtn("有趣的网站", () => {
                     location.assign("https://maii.moe/FunnyWebs/fake-wechat.html");
+                });
+            }
+            else if (factor >= 0.7 && factor <= 1) {
+                resetBtn("个人介绍", () => {
+                    location.assign("https://maii.moe/selfintro.html");
                 });
             }
         }

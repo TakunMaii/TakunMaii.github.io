@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+    <title>MAII的自我介绍</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="floatwindow.css">
+    <style>
+        @font-face {
+            font-family: Monofur;
+            src: url(./Monofur/MonofurNerdFont-Regular.ttf);
+        }
+
+        * {
+            user-select: none;
+        }
+
+        #main-container {
+            margin-left: 50%;
+            transform: translateX(-50%);
+            margin-top: 80px;
+            width: 50%;
+            max-width: 500px;
+        }
+
+        #split-line {
+            margin-top: 50px;
+            margin-bottom: 80px;
+        }
+
+        .commit-message {
+            font-weight: 500;
+            font-size: 22px;
+        }
+        .commit-hash {
+            color: #838383;
+        }
+        .commit {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-container">
+        <h2>更新日志</h2>
+        <div id="log-container"></div>
+    </div>
+
+    <script>
+        async function fetchGitLog() {
+            const repoOwner = 'TakunMaii'; // 替换为仓库所有者
+            const repoName = 'TakunMaii.github.io'; // 替换为仓库名称
+            const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/commits`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const commits = await response.json();
+                console.log(commits);
+                const logContainer = document.getElementById('log-container');
+
+                commits.forEach(commit => {
+                    const commitElement = document.createElement('div');
+                    commitElement.className = 'commit';
+
+                    const commitHash = document.createElement('div');
+                    commitHash.className = 'commit-hash';
+                    commitHash.textContent = commit.sha;
+
+                    const commitDate = document.createElement('div');
+                    commitDate.className = 'commit-date';
+                    commitDate.textContent = commit.commit.committer.date;
+
+                    const commitMessage = document.createElement('div');
+                    commitMessage.className = 'commit-message';
+                    commitMessage.textContent = commit.commit.message;
+
+                    commitElement.appendChild(commitMessage);
+                    commitElement.appendChild(commitDate);
+                    commitElement.appendChild(commitHash);
+
+                    logContainer.appendChild(commitElement);
+                });
+            } catch (error) {
+                console.error('Error fetching the git log:', error);
+            }
+        }
+
+        fetchGitLog();
+    </script>
+
+</body>
+
+</html>

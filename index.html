@@ -38,12 +38,15 @@
         }
 
         #warning-banner {
+            position: absolute;
+            bottom: 0;
             background-color: red;
             color: white;
             padding: 10px;
             margin: 20px;
-            box-sizing: 5px;
+            border-radius: 5px;
             box-shadow: 2px 2px 2px #00000055;
+            z-index: 1000;
         }
 
         @font-face {
@@ -175,11 +178,9 @@
     </style>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            if (window.location.protocol === "http:") {
-                document.getElementById("warning-banner").classList.remove("hidden");
-            }
-        });
+        if (window.location.protocol === "http:") {
+            document.getElementById("warning-banner").classList.remove("hidden");
+        }
 
 
         const btn = document.getElementById('enter-btn');

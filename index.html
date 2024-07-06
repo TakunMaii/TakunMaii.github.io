@@ -1,73 +1,202 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>Maii's Home</title>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <h1 id="mainTitle">Welcome! I'm MAII.</h1>
-        <p id="rule"></p>
-        <button id="enter-btn">看看MAII的GitHub主页</button>
 
-        <style>
-            #enter-btn{
-                width: 60%;
-                margin-left: 50%;
-                transform: translateX(-50%);
-                border: none;
-                display: block;
-                box-shadow: 2px 1px 2px #00000055;
-                padding: 35px;
-                font-size: 30px;
-            }
-        </style>
+<head>
+    <title>Maii's Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+</head>
 
-        <script>
-            const btn = document.getElementById('enter-btn');
-            btn.onclick = ()=>{
-                location.assign("https://github.com/TakunMaii");
-            }
-            function resetBtn(text, onclick)
-            {
-                btn.innerText = text;
-                btn.onclick = onclick;
-            }
-            function choose(factor)
-            {//factor is 0 to 1
-                if(factor>=0 && factor < 0.5)
-                {
-                    resetBtn("看看MAII的GitHub主页",()=>{
-                        location.assign("https://github.com/TakunMaii");
-                    });
-                }
-                else if(factor >=0.5 && factor <=1)
-                {
-                    resetBtn("看看有趣的网站",()=>{
-                        location.assign("https://maii.moe/FunnyWebs/fake-wechat.html");
-                    });
-                }
-            }
-            if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-                // 移动设备
-                window.addEventListener('deviceorientation', (event)=>{
-                    choose((event.beta+180.0)/360.0);
-                }, false);
-                document.getElementById('rule').innerText = "翻转手机来导航";
-            }
-            else
-            {
-                // PC
-                window.addEventListener('resize', ()=>{
-                    var webwidth = document.body.clientWidth;
-                    var screenwidth = window.screen.width;
-                    choose(webwidth/screenwidth);
+<body>
+    <div id="start-text-container">
+        <div id="profile-container">
+            <img src="./icon.ico" alt="MAII的头像" id="profile">
+            <p id="name">MAII</p>
+            <div id="split-line" style="background:linear-gradient(to left,#FFFFFF,#b6b6b6,#FFFFFF);height:1px;"></div>
+            <p id="rule"></p>
+        </div>
+
+
+        <p class="start-text">SEND ME TO</p>
+        <p id="location" class="start-text">MAII的Github主页</p>
+        <button id="enter-btn" class="start-text">PLEASE</button>
+    </div>
+
+    <style>
+        * {
+            user-select: none;
+        }
+
+        @font-face {
+            font-family: Monofur;
+            src: url(./Monofur/MonofurNerdFont-Regular.ttf);
+        }
+
+        #profile-container {
+            text-align: center;
+            width: 100%;
+
+        }
+
+        #profile {
+            width: 100px;
+            margin: 0;
+        }
+
+        #split-line {
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #name {
+            font-size: 30px;
+            margin: 0;
+            margin-bottom: 20px;
+            font-family: 'Monofur';
+            letter-spacing: 0px;
+        }
+
+        #rule {
+            color: #616161;
+            font-size: small;
+        }
+
+        .start-text {
+            width: fit-content;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            border: none;
+            display: block;
+            padding: 15px;
+            font-size: 30px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: #616161;
+        }
+
+        #enter-btn {
+            box-sizing: border-box;
+            background-color: inherit;
+            font-weight: bolder;
+            font-size: 35px;
+            color: black;
+            transition: 0.5s;
+            position: relative;
+            display: inline-block;
+
+        }
+
+        #enter-btn::after {
+            background-color: red;
+            width: 10px;
+            height: 2px;
+            transform: translateY(-50%);
+            top: 50%;
+            right: -25px;
+        }
+
+        #enter-btn:hover {
+            color: red;
+            transition: 0.5s;
+            letter-spacing: 10px;
+            cursor: pointer;
+        }
+
+        #enter-btn::before,
+        #enter-btn::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 2px;
+            background-color: black;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        #enter-btn::before {
+            top: 50%;
+            left: 0px;
+            transform: translateY(-50%);
+            transition: 0.5s;
+        }
+
+        #enter-btn::after {
+            top: 50%;
+            right: 0px;
+            transform: translateY(-50%);
+            transition: 0.5s;
+        }
+
+        #enter-btn:hover::before {
+            opacity: 1;
+            left: -25px;
+            transition: 0.5s;
+            background-color: red;
+        }
+
+        #enter-btn:hover::after {
+            opacity: 1;
+            right: -25px;
+            transition: 0.5s;
+            background-color: red;
+        }
+
+        #start-text-container {
+            position: absolute;
+            top: 44%;
+            transform: translateY(-50%);
+            width: 100%;
+        }
+
+        #start-text-container p {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <script>
+        const btn = document.getElementById('enter-btn');
+        btn.onclick = () => {
+            location.assign("https://github.com/TakunMaii");
+        }
+        function resetBtn(text, onclick) {
+            document.getElementById('location').innerText = text;
+            btn.onclick = onclick;
+        }
+        function choose(factor) {//factor is 0 to 1
+            if (factor >= 0 && factor < 0.5) {
+                resetBtn("MAII的Github主页", () => {
+                    location.assign("https://github.com/TakunMaii");
                 });
-                document.getElementById('rule').innerText = "改变窗口宽度来导航";
             }
+            else if (factor >= 0.5 && factor <= 1) {
+                resetBtn("有趣的网站", () => {
+                    location.assign("https://maii.moe/FunnyWebs/fake-wechat.html");
+                });
+            }
+        }
+        if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+            // 移动设备
+            window.addEventListener('deviceorientation', (event) => {
+                choose((event.beta + 180.0) / 360.0);
+            }, false);
+            document.getElementById('rule').innerText = "Navigate by rotating your device.";
+        }
+        else {
+            // PC
+            window.addEventListener('resize', () => {
+                var webwidth = document.body.clientWidth;
+                var screenwidth = window.screen.width;
+                choose(webwidth / screenwidth);
+            });
+            document.getElementById('rule').innerText = "Navigate by resizing the window.";
+        }
 
-        </script>
-    </body>
+    </script>
+</body>
+
 </html>

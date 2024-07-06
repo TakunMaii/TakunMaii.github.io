@@ -11,6 +11,9 @@
 </head>
 
 <body>
+    <div id="warning-banner" class="hidden">
+        您正在使用HTTP访问此网站，强烈推荐使用<a href="https://maii.moe">HTTPS</a>以提高安全性。
+    </div>
     <div id="start-text-container">
         <div id="profile-container">
             <img src="./icon.ico" alt="MAII的头像" id="profile">
@@ -28,6 +31,19 @@
     <style>
         * {
             user-select: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #warning-banner {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            margin: 20px;
+            box-sizing: 5px;
+            box-shadow: 2px 2px 2px #00000055;
         }
 
         @font-face {
@@ -72,7 +88,7 @@
             border: none;
             display: block;
             padding: 15px;
-            font-size: 30px;
+            font-size: 25px;
             margin-top: 10px;
             margin-bottom: 10px;
             color: #616161;
@@ -159,6 +175,13 @@
     </style>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.location.protocol === "http:") {
+                document.getElementById("warning-banner").classList.remove("hidden");
+            }
+        });
+
+
         const btn = document.getElementById('enter-btn');
         btn.onclick = () => {
             location.assign("https://github.com/TakunMaii");

@@ -5,65 +5,74 @@
 	<link rel="stylesheet" type="text/css" href="wxapp.css">
 </head>
 
-<body class="phone-bg">
-	<table>
-		<tr>
-			<td><input value="输入文本" id="inputtext" />
-				<button id="generate-btn"
-					onclick="">生成</button>
-				<button id="download-btn">下载</button>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<div class="wechat-content-container">
-					<div class="wechat-content" id="capture-area" style="background-color:#F1F1F1;">
-						<div class="wechat-dialog">
-							<div class="wechat-dialog-face"><img src="lzh_pro.jpg"></div>
-							<table>
-								<tr>
-									<td>
-										<div class="wechat-username">龙子豪</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<div class="wechat-dialog-text" id="text">我口水都流出来了</div>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				点击下载按钮下载，也可以右键这个图片复制：
-				<img alt="这里是预览图片" id="preview">
-			</td>
-		</tr>
-	</table>
+<body>
+	<div style="margin-top: 15px;margin-left: 15px;" id="control">
+		<input value="输入文本" id="inputtext" />
+		<button id="generate-btn" onclick="">生成</button>
+		<button id="download-btn">下载</button>
+	</div>
+
+	<div class="wechat-content-container">
+		<div class="wechat-content" id="capture-area" style="background-color:#F1F1F1;">
+			<div class="wechat-dialog">
+				<div class="wechat-dialog-face"><img id="profile" src="lzh_pro.jpg"></div>
+				<table>
+					<tr>
+						<td>
+							<div class="wechat-username" id="name">龙子豪</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="wechat-dialog-text" id="text">我口水都流出来了</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		点击下载按钮下载，也可以右键这个图片复制：
+		<img alt="这里是预览图片" id="preview">
+	</div>
+
+	<div>
+		其他人物：
+		<button
+			onclick="document.getElementById('profile').src='./fb_pro.jpg';document.getElementById('name').innerText='funnybunny'">fb</button>
+		<button
+			onclick="document.getElementById('profile').src='./gua_pro.jpg';document.getElementById('name').innerText='%%%'">%%%</button>
+		<button
+			onclick="document.getElementById('profile').src='./lzh_pro.jpg';document.getElementById('name').innerText='龙子豪'">bigbob</button>
+	</div>
+
 	<style>
+		table {
+			overflow: scroll;
+		}
+
 		.wechat-content {
 			margin-top: 50px;
 			margin-bottom: 30px;
 			padding: 50px;
 			padding-bottom: 30px;
 		}
+
 		.wechat-content-container {
 			box-shadow: 5px 5px 5px #00000055;
 		}
-		#preview{
-			width: 70%;
-			display: block;
+
+		#control *{
+			margin: 0;
+			font-size: 20px;
 		}
 	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 	<script>
 		// generate img
 		document.getElementById('generate-btn').addEventListener('click', function () {
-			document.getElementById('text').innerHTML=document.getElementById('inputtext').value;
+			document.getElementById('text').innerHTML = document.getElementById('inputtext').value;
 			html2canvas(document.getElementById('capture-area')).then(function (canvas) {
 				document.getElementById('preview').src = canvas.toDataURL('image/png');
 			});

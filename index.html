@@ -67,6 +67,9 @@
         #rule {
             color: #616161;
             font-size: small;
+            width: fit-content;
+            margin-left: 50%;
+            transform: translateX(-50%);
         }
 
         .start-text {
@@ -75,10 +78,10 @@
             transform: translateX(-50%);
             border: none;
             display: block;
-            padding: 15px;
-            font-size: 25px;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            padding: 5px;
+            font-size: 20px;
+            margin-top: 5px;
+            margin-bottom: 5px;
             color: #616161;
         }
 
@@ -86,7 +89,7 @@
             box-sizing: border-box;
             background-color: inherit;
             font-weight: bolder;
-            font-size: 35px;
+            font-size: 25px;
             color: black;
             transition: 0.5s;
             position: relative;
@@ -155,7 +158,7 @@
 
         #start-text-container {
             position: absolute;
-            top: 44%;
+            top: 48%;
             transform: translateY(-50%);
             width: 100%;
             font-weight: 100;
@@ -164,7 +167,15 @@
         #start-text-container p {
             margin-top: 20px;
             margin-bottom: 20px;
+            overflow: auto;
         }
+        #navpanel{
+            width: 100%;
+            height: 0;
+            overflow: hidden;
+            transition:1s;
+        }
+
     </style>
 </head>
 
@@ -177,21 +188,25 @@
             <img src="./icon.ico" alt="MAII的头像" id="profile">
             <p id="name">MAII</p>
             <div id="split-line" style="background:linear-gradient(to left,#FFFFFF,#b6b6b6,#FFFFFF);height:1px;"></div>
-            <p id="rule"></p>
         </div>
-
-
-        <p class="start-text">SEND ME TO</p>
-        <p id="location" class="start-text">Github主页</p>
-        <button id="enter-btn" class="start-text">PLEASE</button>
+        <div id="navpanel">
+            <p id="rule"></p>
+            <p class="start-text">SEND ME TO</p>
+            <p id="location" class="start-text">Github主页</p>
+            <button id="enter-btn" class="start-text">PLEASE</button>
+        </div>
     </div>
 
     <script>
+        document.getElementById("start-text-container").onmouseenter  = function(event){
+            document.getElementById("navpanel").style.height = "250px";
+        };
+
         if (window.location.protocol === "http:") {
             document.getElementById("warning-banner").classList.remove("hidden");
         }
 
-        document.getElementById("profile").addEventListener('click',()=>{
+        document.getElementById("profile").addEventListener('click', () => {
             location.assign("https://maii.moe/selfintro.html");
         });
 

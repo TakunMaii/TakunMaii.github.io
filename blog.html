@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麻衣的博客</title>
+    <style>
+        #main-container {
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #main-title {
+            text-align: center;
+        }
+        #split-line {
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="main-title"></h1>
+
+            <div id="split-line" style="background:linear-gradient(to left,#FFFFFF,#b6b6b6,#FFFFFF);height:1px;"></div>
+    <div id="main-container">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        //parse the current url to get the title
+        const url = window.location.href;
+        const title = url.split('#')[1];
+        const mainContainer = document.getElementById('main-container');
+        const mainTitle = document.getElementById('main-title');
+
+        //fetch manifest and get the title
+        fetch('./BlogSource/blog-manifest.json')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(element => {
+                    if (element.url === title) {
+                        mainTitle.innerHTML = element.maintitle;
+                        console.log(title);
+                    }
+                });
+            });
+
+        //fetch the blog content
+        fetch(`./BlogSource/${title}`)
+            .then(response => response.text())
+            .then(data => {
+                if (data) {
+                    mainContainer.innerHTML = marked.parse(data);
+
+                }
+                else {
+                    mainContainer.innerHTML = `<h1>404 Not Found</h1>`;
+                }
+            });
+    </script>
+</body>
+
+</html>

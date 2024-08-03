@@ -239,7 +239,12 @@
                     location.assign("./selfintro.html");
                 });
             }
-            else if (factor >= 0.8 && factor <= 1) {
+            else if (factor >= 0.8 && factor <= 0.9) {
+                resetBtn("友链", () => {
+                    location.assign("./friends.html");
+                });
+            }
+            else if (factor >= 0.9 && factor <= 1) {
                 resetBtn("更新日志", () => {
                     location.assign("./devlog.html");
                 });
